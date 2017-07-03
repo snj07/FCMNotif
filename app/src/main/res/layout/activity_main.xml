@@ -30,7 +30,7 @@
         android:id="@+id/button"
         android:layout_width="333dp"
         android:layout_height="50dp"
-        android:text="Button"
+        android:text="Register"
         android:layout_marginRight="10dp"
         tools:layout_constraintTop_creator="1"
         tools:layout_constraintRight_creator="1"

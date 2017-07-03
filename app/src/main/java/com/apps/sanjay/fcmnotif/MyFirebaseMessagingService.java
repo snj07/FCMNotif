@@ -6,9 +6,6 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Map;
 
 /**
@@ -20,33 +17,36 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        if (remoteMessage.getData().size() > 0) {
-            Log.e(LOG_TAG, "Data Payload: " + remoteMessage.getData().toString());
-            Map<String,String> data= remoteMessage.getData();
-            String click_action = remoteMessage.getNotification().getClickAction();
-            if(data!=null){
-                sendPushNotification(data,click_action);
-            } else{
-                Log.e(LOG_TAG, "Exception: " + "error");
-            }
+        Log.e(LOG_TAG, "Data Payload: " + remoteMessage.getData().toString());
+        Map<String, String> data = remoteMessage.getData();
+        String click_action = remoteMessage.getNotification().getClickAction();
+        if (click_action == null) {
+            click_action = ".MyActivity";
         }
+        String title = remoteMessage.getNotification().getTitle();
+        String message = remoteMessage.getNotification().getBody();
+        sendPushNotification(data, title, message, click_action);
+
+
     }
 
 
-    private void sendPushNotification(Map<String,String> data,String click_action) {
-        String title = data.get("title");
-        String message = data.get("message");
-        String imageUrl = data.get("image");
-        Log.d("click_action",click_action);
+    private void sendPushNotification(Map<String, String> data, String title, String message, String click_action) {
+        String imageUrl = null;
+        if (data != null) {
+            imageUrl = data.get("image");
+        }
+        Log.d("click_action", click_action);
         MyNotificationManager mNotificationManager = new MyNotificationManager(getApplicationContext());
         Intent intent = new Intent(click_action);
-        mNotificationManager.showSmallNotification(title, message, intent);
-        if (imageUrl==null ||imageUrl.equals("")) {
+        if (imageUrl == null || imageUrl.equals("")) {
             mNotificationManager.showSmallNotification(title, message, intent);
+
         } else {
             mNotificationManager.showBigNotification(title, message, imageUrl, intent);
         }
 
     }
+
 
 }
