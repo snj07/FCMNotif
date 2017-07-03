@@ -23,6 +23,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     private Button btnRegisterDevice;
     private EditText etEmailID;
+
     private ProgressDialog progressDialog;
 
     @Override
