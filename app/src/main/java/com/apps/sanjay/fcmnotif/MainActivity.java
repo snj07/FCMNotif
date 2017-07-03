@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
         btnRegisterDevice = (Button) findViewById(R.id.button);
         etEmailID = (EditText) findViewById(R.id.reg_id);
